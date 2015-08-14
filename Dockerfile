@@ -19,7 +19,7 @@ debconf mysql-server/root_password password 123456
 debconf mysql-server/root_password_again password 123456
 EOF
 ) > /tmp/mysql-passwd
-RUN debconf-set-selections mysql-passwd
+RUN debconf-set-selections /tmp/mysql-passwd
 RUN apt-get -y install mysql-server
 
 EXPOSE 8080
