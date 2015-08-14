@@ -22,6 +22,9 @@ RUN apt-get -y install mysql-server
 
 RUN rm /tmp/mysql-passwd
 
+#php-mysql
+RUN apt-get install -y php5-mysql
+
 #start.sh
 RUN mkdir /webdev && \
 echo "#!/bin/sh\n \
