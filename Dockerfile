@@ -39,6 +39,8 @@ service php5-fpm start\n \
 service nginx start\n \
 service mysql start\n" > /webdev/start.sh
 
+RUN chmod 755 /webdev/start.sh
+
 EXPOSE 8080
 
 VOLUME /webdata
