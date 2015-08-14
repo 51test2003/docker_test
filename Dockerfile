@@ -32,3 +32,5 @@ service mysql start\n" > /webdev/start.sh
 EXPOSE 8080
 
 VOLUME /webdata
+
+ENTRYPOINT ["/webdev/start.sh"]
