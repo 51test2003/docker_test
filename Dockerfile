@@ -25,6 +25,13 @@ RUN rm /tmp/mysql-passwd
 #php-mysql
 RUN apt-get install -y php5-mysql
 
+# nginx site conf
+RUN rm -Rf /etc/nginx/conf.d/* && \
+rm -Rf /etc/nginx/sites-available/default && \
+mkdir -p /etc/nginx/ssl/
+ADD ./nginx-site.conf /etc/nginx/sites-available/default.conf
+RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
+
 #start.sh
 RUN mkdir /webdev && \
 echo "#!/bin/sh\n \
