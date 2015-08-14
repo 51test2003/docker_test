@@ -45,4 +45,4 @@ EXPOSE 8080
 
 VOLUME /webdata
 
-ENTRYPOINT ["/webdev/start.sh"]
+#ENTRYPOINT ["/webdev/start.sh"]
