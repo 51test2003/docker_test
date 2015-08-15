@@ -5,8 +5,9 @@ MAINTAINER 51test2003 "51test2003@163.com"
 RUN apt-get update
 
 #PHP
-RUN apt-get install -y php5 php5-fpm php5-curl php5-mcrypt
+RUN apt-get install -y php5 php5-cli php5-fpm php5-curl php5-mcrypt
 RUN php5enmod mcrypt
+RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf
 
 #Ngnix
 RUN apt-get install -y nginx
