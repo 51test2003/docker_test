@@ -41,4 +41,4 @@ EXPOSE 80
 
 VOLUME /webdata
 
-#ENTRYPOINT ["/usr/bin/supervisord"]
+ENTRYPOINT ["/usr/bin/supervisord"]
