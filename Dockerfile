@@ -37,8 +37,10 @@ RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/defau
 RUN apt-get install -y supervisor
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
+ADD init.sh /init.sh
+
 EXPOSE 80
 
 VOLUME /webdata
 
-ENTRYPOINT ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord"]
