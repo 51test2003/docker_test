@@ -1,7 +1,7 @@
 #!/bin/bash
 
-$INIT=setup.sh
+$INIT=/webdata/ReChat/setup.sh
 
-if [ -x "$INIT" ]; then
+if [ -f "$INIT" ]; then
 sh $INIT
 fi
