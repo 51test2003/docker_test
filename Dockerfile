@@ -2,30 +2,26 @@ FROM ubuntu:14.04
 
 MAINTAINER 51test2003 "51test2003@163.com"
 
-RUN apt-get update
+RUN apt-get update -y
 
-#PHP
-RUN apt-get install -y php5 php5-cli php5-fpm php5-curl php5-mcrypt
-RUN php5enmod mcrypt
-RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf
-
-#Ngnix
-RUN apt-get install -y nginx
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-
-#MySQL
+# MySQL
 RUN apt-get -dy install mysql-server
 
 RUN echo "debconf mysql-server/root_password password 123456\n \
 debconf mysql-server/root_password_again password 123456" > /tmp/mysql-passwd && \
 debconf-set-selections /tmp/mysql-passwd
 
-RUN apt-get -y install mysql-server
+RUN apt-get -y install mysql-server && \
+rm /tmp/mysql-passwd
 
-RUN rm /tmp/mysql-passwd
+# PHP
+RUN apt-get install -y php5 php5-cli php5-fpm php5-curl php5-mcrypt php5-mysql && \
+php5enmod mcrypt && \
+sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf
 
-#php-mysql
-RUN apt-get install -y php5-mysql
+# Ngnix
+RUN apt-get install -y nginx && \
+echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
 # nginx site conf
 RUN rm -Rf /etc/nginx/conf.d/* && \
