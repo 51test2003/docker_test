@@ -5,11 +5,12 @@ MAINTAINER 51test2003 "51test2003@163.com"
 RUN apt-get update
 
 #PHP
-RUN apt-get install -y php5 php5-fpm 
+RUN apt-get install -y php5 php5-fpm php5-curl php5-mcrypt
 RUN php5enmod mcrypt
 
 #Ngnix
 RUN apt-get install -y nginx
+RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
 #MySQL
 RUN apt-get -dy install mysql-server
@@ -32,17 +33,12 @@ mkdir -p /etc/nginx/ssl/
 ADD ./nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
-#start.sh
-RUN mkdir /webdev && \
-echo "#!/bin/sh\n \
-service php5-fpm start\n \
-service nginx start\n \
-service mysql start\n" > /webdev/start.sh
+#supervisor
+RUN apt-get install -y supervisor
+ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-RUN chmod 755 /webdev/start.sh
-
-EXPOSE 8080
+EXPOSE 80
 
 VOLUME /webdata
 
-#ENTRYPOINT ["/webdev/start.sh"]
+#ENTRYPOINT ["/usr/bin/supervisord"]
